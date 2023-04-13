@@ -33,10 +33,9 @@ const HeaderWidth = styled.div`
 `
 
 const Container = styled.div`
-  background-color: white;
   width: 1300px;
   margin: auto;
-  height: 6vh;
+  height: 7vh;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -44,7 +43,7 @@ const Container = styled.div`
   color: #ffd700;
   font-size: 30px;
   font-weight: 700;
-  padding: 0.5%;
+  padding: 0.2%;
 `
 
 const Logo = styled.div`
@@ -89,6 +88,9 @@ const NewOfferButton = styled.button`
   h1{
     margin-left: 5px;
     margin-top: 4px;
+  }
+  :hover {
+    box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.04);
   }
 `
 const AddIcon = styled(IoMdAddCircle)`
