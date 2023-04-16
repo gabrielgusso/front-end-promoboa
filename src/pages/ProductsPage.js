@@ -4,30 +4,35 @@ import ProductCard from "../components/ProductCard"
 import { useEffect, useState } from "react"
 import { getProducts } from "../services/productsApi"
 import axios from "axios"
+import OutsideClickHandler from "../components/OutsideClickHandler"
 
 export default function ProductPage() {
   const [products, setProducts] = useState()
 
-  useEffect( () => {
+  useEffect(() => {
     getProducts()
-    .then((res) => {
-      console.log(res)
-      setProducts(res)
-    })
-    .catch((err) => {
-      console.log(err)
-    })
+      .then((res) => {
+        setProducts(res)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
   }, [])
-  
+
   return (
-    <Container>
-      <Header />
-      <ContainerWidth>
-        {products && products.map((prod) => 
-        <ProductCard key={prod.id} product={prod}/>  
-        )}
-      </ContainerWidth>
-    </Container>
+      <Container
+        onOutsideClick={() => {
+          console.log("clicked outside!")
+        }}
+      >
+        <Header />
+        <ContainerWidth>
+          {products &&
+            products.map((prod) => (
+              <ProductCard key={prod.id} product={prod} />
+            ))}
+        </ContainerWidth>
+      </Container>
   )
 }
 
@@ -44,4 +49,3 @@ const ContainerWidth = styled.div`
   justify-content: space-between;
   flex-wrap: wrap;
 `
-

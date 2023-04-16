@@ -3,41 +3,43 @@ import { yellow } from "../assets/color"
 import { useState } from "react"
 import { gray } from "../assets/color"
 import { signIn, signUp } from "../services/authApi"
+import { useNavigate } from "react-router-dom"
 
 export default function Auth() {
   const [login, setLogin] = useState("createAcc")
   const [infos, setInfos] = useState({})
+  const navigate = useNavigate()
+
 
   async function submitInfos(e) {
     e.preventDefault()
 
-    if(e.target.name.value){
+    if (e.target.name.value) {
       const body = {
         name: e.target.name.value,
         email: e.target.email.value,
-        password: e.target.password.value
+        password: e.target.password.value,
       }
-     try{
-      console.log(body)
-      const token = await signUp(body)
-      console.log(token)
-
-     } catch(err) {
-      console.log(err)
-     }
+      try {
+        await signUp(body)
+        setLogin("login")
+      } catch (err) {
+        console.log(err)
+      }
     } else {
       const body = {
         email: e.target.email.value,
-        password: e.target.password.value
+        password: e.target.password.value,
       }
-      try{
-        console.log(body)
-        const token = await signIn(body)
-        console.log(token)
-  
-       } catch(err) {
+      try {
+        const result = await signIn(body)
+        localStorage.setItem("Bearer", result.token)
+        localStorage.setItem("userInfos", JSON.stringify(result.user))
+        // console.log( JSON.parse(localStorage.getItem("userInfos")))
+        navigate("/")
+      } catch (err) {
         console.log(err)
-       }
+      }
     }
   }
 
@@ -93,7 +95,7 @@ export default function Auth() {
             </InputName>
           )}
           <ButtonDiv>
-            <CancelButton>Cancelar</CancelButton>
+            <CancelButton onClick={() => navigate("/")}>Cancelar</CancelButton>
             <ConfirmButton type="submit">Confirmar</ConfirmButton>
           </ButtonDiv>
         </Form>

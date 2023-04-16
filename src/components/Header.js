@@ -2,9 +2,26 @@ import styled from "styled-components"
 import { FaSearchDollar } from "react-icons/fa"
 import { IoMdAddCircle } from "react-icons/io"
 import Search from "./SearchBox"
-import { yellow } from "../assets/color"
+import { gray, yellow } from "../assets/color"
+import { useNavigate } from "react-router-dom"
+import { useEffect } from "react"
+import { useState } from "react"
+import { signInWithToken } from "../services/authApi"
 
 export default function Header() {
+  const navigate = useNavigate()
+  const [userInfos, setUserInfos] = useState()
+
+  useEffect(() => {
+    const token = localStorage.getItem("Bearer")
+    signInWithToken(token)
+      .then((infos) => {
+        setUserInfos(infos)
+      })
+      .catch((err) => {
+      })
+  }, [])
+
   return (
     <HeaderWidth>
       <Container>
@@ -14,15 +31,21 @@ export default function Header() {
           </BoxIcon>
           <h1>Promoboa</h1>
         </Logo>
-        <Search></Search>
+        <Search/>
         <ProfileAndOfferDiv>
           <NewOfferButton>
             <AddIcon />
             <h1>Nova Oferta</h1>
           </NewOfferButton>
-          <Profile>
-            <h1>Entrar</h1>
-          </Profile>
+          {userInfos ? (
+            <ProfileAfterLogin>
+            <h1>Meu Perfil</h1>
+          </ProfileAfterLogin>
+          ) : (
+            <Profile onClick={() => navigate("/entrar")}>
+              <h1>Entrar</h1>
+            </Profile>
+          )}
         </ProfileAndOfferDiv>
       </Container>
     </HeaderWidth>
@@ -46,6 +69,7 @@ const Container = styled.div`
   font-size: 30px;
   font-weight: 500;
   padding: 0.2%;
+  position: relative;
 `
 
 const Logo = styled.div`
@@ -73,7 +97,6 @@ const ProfileAndOfferDiv = styled.div`
   height: 85%;
   display: flex;
   justify-content: space-between;
-
 `
 
 const NewOfferButton = styled.button`
@@ -104,6 +127,7 @@ const Profile = styled.div`
   width: 45%;
   height: 100%;
   border-radius: 3px;
+  cursor: pointer;
   h1 {
     font-size: 20px;
   }
@@ -111,4 +135,19 @@ const Profile = styled.div`
   align-items: center;
   justify-content: center;
   border: 2px solid ${yellow};
+`
+
+const ProfileAfterLogin = styled.div`
+width: 45%;
+height: 100%;
+border-radius: 3px;
+cursor: pointer;
+h1 {
+  font-size: 18px;
+  color: black;
+}
+display: flex;
+align-items: center;
+justify-content: center;
+background-color: ${gray};
 `
