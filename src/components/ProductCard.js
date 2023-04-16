@@ -5,20 +5,9 @@ import "moment/locale/pt-br"
 import { BiLike } from "react-icons/bi"
 import { GoCommentDiscussion } from "react-icons/go"
 
-export default function ProductCard() {
-  const productMock = {
-    userName: "Joao",
-    name: "Teclado Mecânico Gamer HyperX Alloy MKW100",
-    url: "https://www.kabum.com.br/produto/371586/teclado-mecanico-gamer-hyperx-alloy-mkw100-rgb-switch-red-full-size-layout-us-4p5e1aa-aba?gclid=Cj0KCQjw27mhBhC9ARIsAIFsETEFcZYwp5bxp8o14IoWt_XkVkAhhC0pHxmN410XxwwaPf6qneyZK2IaAhX_EALw_wcB",
-    image:
-      "https://i.promobit.com.br/268/jogo_pc_devil_may_cry_4_special__edition.jpg",
-    description: "Teclado de luzinha sla ta barato",
-    store: "Kabum",
-    coupon: "",
-    normalPrice: 35090,
-    discountPrice: 29900,
-    createdAt: "2023-03-22T16:13:39.982Z",
-  }
+export default function ProductCard({product}) {
+  const {name, image, store, normalPrice, discountPrice, createdAt, comments, likes} = product
+
   function formatPrice(price) {
     const realPrice = price / 100
     return realPrice.toLocaleString("pt-BR", {
@@ -32,28 +21,36 @@ export default function ProductCard() {
     return moment.tz(data, "America/Sao_Paulo").fromNow()
   }
 
+  function formatLikesAndComments(number){
+    if(number > 99){
+      return "99+"
+    } else {
+      return number
+    }
+  }
+
   return (
     <Container>
       <ImageDiv>
-        <img src={productMock.image} alt={productMock.name} />
+        <img src={image} alt={name} />
       </ImageDiv>
       <BlackLine />
       <Padding>
         <PriceDiv>
           <h1>
-            <del>{formatPrice(productMock.normalPrice)}</del>
+            <del>{formatPrice(normalPrice)}</del>
           </h1>
-          <h2>{formatPrice(productMock.discountPrice)}</h2>
+          <h2>{formatPrice(discountPrice)}</h2>
         </PriceDiv>
-        <h3>{productMock.name.substring(0, 44)}</h3>
+        <h3>{name.substring(0, 44)}</h3>
         <BottonInfosBox>         
             <StoreName>
-              <p>{productMock.store}</p>
-              <CommentDiv><Comment/> <h1>99+</h1></CommentDiv>
+              <p>{store}</p>
+              <CommentDiv><Comment/> <h1>{formatLikesAndComments(comments)}</h1></CommentDiv>
             </StoreName>
             <DateAndlikeDiv>
-            <Date>{formatData(productMock.createdAt)}</Date>
-            <LikeButton><LikeIcon/> <h1>99+</h1></LikeButton>
+            <Date>{formatData(createdAt)}</Date>
+            <LikeButton><LikeIcon/> <h1>{formatLikesAndComments(likes)}</h1></LikeButton>
           </DateAndlikeDiv>
         </BottonInfosBox>
       </Padding>
@@ -70,6 +67,7 @@ const Container = styled.div`
   border-radius: 5px;
   position: relative;
   cursor: pointer;
+  margin-bottom: 15px;
   img {
     width: 100%;
   }
@@ -141,6 +139,7 @@ const DateAndlikeDiv = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
 `
 
 const StoreName = styled.div`
@@ -181,6 +180,8 @@ const LikeButton = styled.button`
   align-items: center;
   justify-content: center;
   margin-top: 13px;
+  position: absolute;
+  bottom: 3px;
   cursor: pointer;
   h1{
     margin-left: 4px;
@@ -200,5 +201,5 @@ const BottonInfosBox = styled.div`
   height: 15%;
   display: flex;
   align-items: center;
-  margin-top: 15px;
+  margin-top: 10px;
 `

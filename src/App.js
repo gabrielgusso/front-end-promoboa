@@ -1,6 +1,7 @@
 import GlobalStyle from "./components/GlobalStyle"
 import { BrowserRouter, Route, Routes } from "react-router-dom"
 import ProductPage from "./pages/ProductsPage"
+import Auth from "./pages/Auth"
 
 function App() {
   return (
@@ -8,6 +9,7 @@ function App() {
       <GlobalStyle />
       <Routes>
         <Route path="/" element={<ProductPage />} />
+        <Route path="/entrar" element={<Auth />} />
       </Routes>
       
     </BrowserRouter>

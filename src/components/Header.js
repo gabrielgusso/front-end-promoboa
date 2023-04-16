@@ -2,6 +2,7 @@ import styled from "styled-components"
 import { FaSearchDollar } from "react-icons/fa"
 import { IoMdAddCircle } from "react-icons/io"
 import Search from "./SearchBox"
+import { yellow } from "../assets/color"
 
 export default function Header() {
   return (
@@ -20,6 +21,7 @@ export default function Header() {
             <h1>Nova Oferta</h1>
           </NewOfferButton>
           <Profile>
+            <h1>Entrar</h1>
           </Profile>
         </ProfileAndOfferDiv>
       </Container>
@@ -42,13 +44,14 @@ const Container = styled.div`
   font-family: "Prompt", sans-serif;
   color: #ffd700;
   font-size: 30px;
-  font-weight: 700;
+  font-weight: 500;
   padding: 0.2%;
 `
 
 const Logo = styled.div`
   width: 25%;
   display: flex;
+  font-weight: 700;
   h1 {
     margin-left: 7px;
     padding-top: 4px;
@@ -70,6 +73,7 @@ const ProfileAndOfferDiv = styled.div`
   height: 85%;
   display: flex;
   justify-content: space-between;
+
 `
 
 const NewOfferButton = styled.button`
@@ -85,7 +89,7 @@ const NewOfferButton = styled.button`
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  h1{
+  h1 {
     margin-left: 5px;
     margin-top: 4px;
   }
@@ -97,8 +101,14 @@ const AddIcon = styled(IoMdAddCircle)`
   font-size: 25px;
 `
 const Profile = styled.div`
-  background-color: #E5E4E2;
   width: 45%;
   height: 100%;
   border-radius: 3px;
+  h1 {
+    font-size: 20px;
+  }
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid ${yellow};
 `

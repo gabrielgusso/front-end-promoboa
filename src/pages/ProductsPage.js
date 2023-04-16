@@ -1,27 +1,47 @@
 import styled from "styled-components"
 import Header from "../components/Header"
 import ProductCard from "../components/ProductCard"
+import { useEffect, useState } from "react"
+import { getProducts } from "../services/productsApi"
+import axios from "axios"
 
 export default function ProductPage() {
+  const [products, setProducts] = useState()
+
+  useEffect( () => {
+    getProducts()
+    .then((res) => {
+      console.log(res)
+      setProducts(res)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+  }, [])
+  
   return (
     <Container>
       <Header />
       <ContainerWidth>
-        <ProductCard></ProductCard>
+        {products && products.map((prod) => 
+        <ProductCard key={prod.id} product={prod}/>  
+        )}
       </ContainerWidth>
     </Container>
   )
 }
 
 const Container = styled.div`
-  background-color: #e5e4e2;
   width: 100%;
   height: 100vh;
 `
 const ContainerWidth = styled.div`
   width: 1300px;
-  border: 1px solid black;
   height: 93vh;
   margin: auto;
-  padding: 50px;
+  margin-top: 50px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
 `
+
