@@ -22,6 +22,16 @@ export default function Header() {
       })
   }, [])
 
+  function GoNewOffer(){
+    const token = localStorage.getItem("Bearer")
+    if(!token){
+      navigate('/entrar')
+    } else {
+      navigate('/nova-oferta')
+    }
+
+  }
+
   return (
     <HeaderWidth>
       <Container>
@@ -33,7 +43,7 @@ export default function Header() {
         </Logo>
         <Search/>
         <ProfileAndOfferDiv>
-          <NewOfferButton>
+          <NewOfferButton onClick={() => GoNewOffer()}>
             <AddIcon />
             <h1>Nova Oferta</h1>
           </NewOfferButton>
@@ -55,12 +65,15 @@ export default function Header() {
 const HeaderWidth = styled.div`
   width: 100%;
   background-color: white;
+  position: fixed;
+  top: 0;
+  z-index: 2;
 `
 
 const Container = styled.div`
   width: 1300px;
   margin: auto;
-  height: 7vh;
+  height: 80px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -94,7 +107,7 @@ const BoxIcon = styled.div`
 `
 const ProfileAndOfferDiv = styled.div`
   width: 25%;
-  height: 85%;
+  height: 70%;
   display: flex;
   justify-content: space-between;
 `
@@ -144,10 +157,10 @@ border-radius: 3px;
 cursor: pointer;
 h1 {
   font-size: 18px;
-  color: black;
 }
 display: flex;
 align-items: center;
 justify-content: center;
-background-color: ${gray};
+border: 2px solid ${yellow};
+background-color: white;
 `

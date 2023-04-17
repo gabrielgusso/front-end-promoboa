@@ -3,8 +3,6 @@ import Header from "../components/Header"
 import ProductCard from "../components/ProductCard"
 import { useEffect, useState } from "react"
 import { getProducts } from "../services/productsApi"
-import axios from "axios"
-import OutsideClickHandler from "../components/OutsideClickHandler"
 
 export default function ProductPage() {
   const [products, setProducts] = useState()
@@ -20,25 +18,24 @@ export default function ProductPage() {
   }, [])
 
   return (
-      <Container
-        onOutsideClick={() => {
-          console.log("clicked outside!")
-        }}
-      >
-        <Header />
-        <ContainerWidth>
-          {products &&
-            products.map((prod) => (
-              <ProductCard key={prod.id} product={prod} />
-            ))}
-        </ContainerWidth>
-      </Container>
+    <Container
+      onOutsideClick={() => {
+        console.log("clicked outside!")
+      }}
+    >
+      <Header />
+      <ContainerWidth>
+        {products &&
+          products.map((prod) => <ProductCard key={prod.id} product={prod} />)}
+      </ContainerWidth>
+    </Container>
   )
 }
 
 const Container = styled.div`
   width: 100%;
   height: 100vh;
+  margin-top: 100px;
 `
 const ContainerWidth = styled.div`
   width: 1300px;

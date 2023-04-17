@@ -2,7 +2,7 @@ import GlobalStyle from "./components/GlobalStyle"
 import { BrowserRouter, Route, Routes } from "react-router-dom"
 import ProductPage from "./pages/ProductsPage"
 import Auth from "./pages/Auth"
-import { useState } from "react"
+import AddOffer from "./pages/AddOffer"
 
 function App() {
 
@@ -12,6 +12,7 @@ function App() {
       <Routes>
         <Route path="/" element={<ProductPage />} />
         <Route path="/entrar" element={<Auth />} />
+        <Route path="/nova-oferta" element={<AddOffer />} />
       </Routes>
       
     </BrowserRouter>

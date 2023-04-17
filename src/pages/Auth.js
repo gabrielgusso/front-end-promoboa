@@ -7,7 +7,6 @@ import { useNavigate } from "react-router-dom"
 
 export default function Auth() {
   const [login, setLogin] = useState("createAcc")
-  const [infos, setInfos] = useState({})
   const navigate = useNavigate()
 
 
@@ -65,7 +64,6 @@ export default function Auth() {
                 placeholder="Nome"
                 type="name"
                 required
-                onChange={(e) => setInfos({ ...infos, name: e })}
               />
             </>
           )}
@@ -77,7 +75,6 @@ export default function Auth() {
             placeholder="email@exemplo.com"
             type="email"
             required
-            // onChange={(e) =>}
           />
           <InputName>
             <h1>Senha</h1>
@@ -87,7 +84,6 @@ export default function Auth() {
             placeholder="******"
             type="password"
             required
-            // onChange={(e) =>}
           />
           {login === "createAcc" && (
             <InputName>
@@ -116,13 +112,13 @@ const Container = styled.div`
 const CentralBox = styled.div`
   background-color: white;
   width: 450px;
-  height: ${(prop) => (prop.login === "createAcc" ? "60vh" : "48vh")};
+  height: ${(prop) => (prop.login === "createAcc" ? "500px" : "380px")};
   border-radius: 10px;
   border: 1px solid ${yellow};
 `
 const Top = styled.div`
   width: 100%;
-  height: 10%;
+  height: 60px;
   /* background-color: lightblue; */
   display: flex;
 `
@@ -176,16 +172,14 @@ const Form = styled.form`
   flex-direction: column;
   height: 85%;
   align-items: center;
-  padding-top: 40px;
+  padding-top: 20px;
   position: relative;
   input {
     height: 50px;
     width: 90%;
     border-radius: 3px;
     border: 1px solid ${gray};
-    ::placeholder {
-      padding-left: 5px;
-    }
+    padding-left: 10px;
   }
   h1 {
     margin-bottom: 10px;
